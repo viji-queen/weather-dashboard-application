@@ -1,7 +1,19 @@
+
 .App {
   text-align: center;
 }
+body{
+  /* background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+  height: 100vh;  */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #2b9dca, #ADD8E6);
+  background-size: cover;
+  background-attachment: fixed;
 
+
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,7 +26,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +46,65 @@
   to {
     transform: rotate(360deg);
   }
+}
+.dashboard-card{
+   border: 1px white solid;
+   height: auto;
+   width: 80%;
+   border-radius: 2%;
+}
+.now-card{
+/* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  border: 1px white solid;
+  height: auto;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Use a clean and modern font */
+  color: white;
+
+
+}
+.carousel-container {
+  width: 100%;
+  margin: auto;
+}
+
+.card-wrapper {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  overflow: hidden;
+  text-align: center;
+
+}
+
+.card .card-body, .card .list-group-item {
+  padding: 5px;
+}
+.card-img{
+  height: 100px;
+  width: 100px;
+
+}
+.app-name{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Use a clean and modern font */
+  font-size: 40px; /* Make the font size large */
+  color: #fff; /* White color for good contrast */
+  text-align: center; /* Center the text */
+  padding: 20px; /* Add some padding for spacing */
+  margin: 20px auto; /* Center the element horizontally with margin */
+  width: fit-content; /* Fit the width to the content */
+}
+.drop-down{
+  width: 300px;
+  border: 1px white solid;
+  border-radius: 5px;
+  height: 35px;
+  background-color: transparent;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Use a clean and modern font */
+  
 }
