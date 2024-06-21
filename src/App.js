@@ -16,6 +16,7 @@ function App() {
 
       <Region setLat={setLat} setLon={setLon} />
       <Dashboard lat={lat} lon={lon} />
+      
       </header>
     </div>
   );

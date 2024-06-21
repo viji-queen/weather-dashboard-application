@@ -108,3 +108,16 @@ body{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Use a clean and modern font */
   
 }
+.modal-transparent .modal-content {
+  /* background-color: transparent !important; */
+  background: linear-gradient(to bottom, #2b9dca, #ADD8E6);
+
+  border: none;
+  box-shadow: none;
+}
+
+.modal-transparent .modal-backdrop {
+  background-color: transparent !important;
+}
+
+

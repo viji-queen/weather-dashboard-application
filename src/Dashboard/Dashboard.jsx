@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Suggestion from "../Analysis/Suggestion";
+import MonthlyPlanner from "../Analysis/MonthlyPlanner";
 
 function Dashboard({lat, lon}) {
   const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
@@ -74,7 +75,6 @@ function Dashboard({lat, lon}) {
   };
   return (
     <>
-    <Suggestion weatherData={weatherData} formatDateTime={formatDateTime}/>
       <div className="dashboard-card">
         {weatherData.length > 0 && (
           <div>
@@ -105,6 +105,11 @@ function Dashboard({lat, lon}) {
           </Slider>
         </div>
       </div>
+     <div className="m-5 d-flex justify-content-center gap-5">
+     <Suggestion weatherData={weatherData} formatDateTime={formatDateTime}/>
+     <MonthlyPlanner weatherData={weatherData} formatDateTime={formatDateTime} />
+     </div>
+
     </>
   );
 }
