@@ -86,7 +86,7 @@ function Suggestion(
         className="now-card text-white"
       >
         <Card.Header>
-          Suggestion For Today
+          Suggestion For Your Day
           <Card.Body>
             <h1>Mostly {summary.weather}</h1>
 

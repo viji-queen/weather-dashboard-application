@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import WeatherCharts from './Weather';
 import { Row, Col, Modal } from "react-bootstrap";
+import {EqualizerOutlined,BarChartOutlined , AutoGraphOutlined, PieChartOutlineOutlined} from '@mui/icons-material/';
 
 function MonthlyPlanner({weatherData, formatDateTime}) {
   const [show, setShow] = useState(false);
@@ -25,7 +26,25 @@ console.log(extractedData, "Extracteddata");
     <Card.Header>
       Weekly Planner
       <Card.Body>
-        <h1>Mostly</h1>
+      <h3>Plan your week Accordingly</h3>
+
+      <Row className="m-2">
+              <Col>
+                <BarChartOutlined color=" " sx={{ fontSize: 50 }} />
+              </Col>
+              <Col>
+                <AutoGraphOutlined sx={{ fontSize: 50 }} color=" " />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <EqualizerOutlined sx={{ fontSize: 50 }} color=" " />
+              </Col>
+              <Col>
+                {" "}
+                <PieChartOutlineOutlined sx={{ fontSize: 50 }} color=" " />
+              </Col>
+            </Row>
        
        
         <Button variant="outlined"  onClick={handleShow}>
