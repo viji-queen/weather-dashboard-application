@@ -1,6 +1,6 @@
 import React from 'react'
 
-function NowCard({city,country, temp, description, image, feels_like}) {
+function NowCard({city,country,humidity, temp, description, image, feels_like, wind_speed}) {
   return (
     <>
   <div className='now-card '>
@@ -13,7 +13,7 @@ function NowCard({city,country, temp, description, image, feels_like}) {
           <h2>{temp}°C</h2>
         </div>
         <div className='col'>
-        <p>{description}</p>
+        <h2>{description}</h2>
         </div>
         <div className='col'>
           <h2>Feels Like</h2>
@@ -22,14 +22,23 @@ function NowCard({city,country, temp, description, image, feels_like}) {
       </div>
     </div>
     <div>
-    <div className="">
-    <img 
+    <div className="row">
+      <div className="col">
+        <h5>Wind Speed</h5>
+        <h5>{wind_speed} km/hr</h5>
+      </div>
+   <div className="col"> <img 
+    className='col'
     style={{height:'150px', width:'150px'}}
     src={image}
     alt={description}
-    />
-    </div>
-  
+    /></div>
+   
+    <div className="col">
+        <h5>Humidity</h5>
+        <h5>{humidity}%</h5>
+      </div>
+      </div>
     </div>
 
    </div>

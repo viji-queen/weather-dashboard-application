@@ -58,7 +58,7 @@ console.log(extractedData, "Extracteddata");
     <Modal.Title>Weekly Plan</Modal.Title>
   </Modal.Header>
   <Modal.Body>
-  <WeatherCharts />
+  <WeatherCharts extractedData={extractedData} />
   </Modal.Body>
   <Modal.Footer>
     <Button variant="secondary" onClick={handleClose}>

@@ -85,6 +85,8 @@ function Dashboard({lat, lon}) {
               feels_like={Math.ceil(weatherData[0].main.feels_like - 272.15)}
               description={weatherData[0].weather[0].description}
               image={`https://openweathermap.org/img/wn/${weatherData[0].weather[0].icon}.png`}
+              wind_speed={weatherData[0].wind.speed}
+              humidity={weatherData[0].main.humidity}
             />
           </div>
         )}

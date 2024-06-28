@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FaCircle } from "react-icons/fa";
 import {
@@ -30,7 +30,7 @@ function HealthAndSafety({ groupedData, summary , weatherData}) {
 
     return <FaCircle style={{ color, fontSize: "10px", marginRight: "5px" }} />;
   };
-  console.log(groupedData);
+
   let dayWeather = [];
   const getWeatherOfTheDay = () => {
     groupedData[0].map((g) => {
@@ -38,8 +38,26 @@ function HealthAndSafety({ groupedData, summary , weatherData}) {
     });
   };
   getWeatherOfTheDay();
-  console.log(dayWeather, "Day weather");
 
+  const weaCount = {}
+  useEffect(()=>{
+    const getSuggestion=(arr)=>{
+console.log("Getting Suggestion");
+
+arr.forEach(element => {
+  if(weaCount[element]){
+    weaCount[element] +=1
+  }else{
+    weaCount[element] =1
+  }
+ 
+});
+console.log(weaCount);
+return weaCount
+
+    }
+    getSuggestion(dayWeather)
+  },[])
   const uniqueWeather = [...new Set(dayWeather)];
   const tempPerDay =[]
 groupedData[0].map((g)=>{
@@ -59,29 +77,28 @@ console.log(tempPerDay);
       <Row className="m-2">
         <Col className="d-flex">
           <Umbrella color=" " sx={{ fontSize: 50 }} />
-          {dayWeather.includes("Rain") ? (
-            <div>
-              <StatusIndicator status="yellow" /> Good To Have.
-            </div>
-          ) : (
-            <div>
-              {" "}
-              <StatusIndicator status="green"  /> No Need
-            </div>
-          )}
+          {weaCount.Rain >= 0 &&  weaCount.Rain <=2 ?
+           <div>
+           <StatusIndicator status="yellow" /> Good To Have.
+         </div>:
+         <div>
+         {" "}
+         <StatusIndicator status="green"  /> No Need
+       </div>
+          }
+          
         </Col>
         <Col className="d-flex">
           <DirectionsBike sx={{ fontSize: 50 }} color=" " />
-          {dayWeather.includes("Clouds") ? (
-            <div>
-              <StatusIndicator status="green" /> Great
-            </div>
-          ) : (
-            <div>
-              {" "}
-              <StatusIndicator status="yellow"  /> Avoid
-            </div>
-          )}
+          {weaCount.Clouds >= 0 &&  weaCount.Clouds <=2 ?
+           <div>
+           <StatusIndicator status="yellow" /> Avoid
+         </div>:
+         <div>
+         {" "}
+         <StatusIndicator status="green"  /> Great
+       </div>
+          }
         </Col>
       </Row>
       <Row>
@@ -99,8 +116,15 @@ console.log(tempPerDay);
         </Col>
         <Col className="d-flex">
         <AgricultureSharpIcon sx={{ fontSize: 50 }} color=" " className="mx-3" />
-        <div><StatusIndicator status="green" /> Great</div>
-        </Col>
+        {weaCount.Clouds >= 0 &&  weaCount.Clouds <=2 ?
+           <div>
+           <StatusIndicator status="yellow" /> Avoid
+         </div>:
+         <div>
+         {" "}
+         <StatusIndicator status="green"  /> Great
+       </div>
+          }        </Col>
       </Row>
      
     </div>
