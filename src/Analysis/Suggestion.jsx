@@ -76,7 +76,6 @@ function Suggestion(
 
   // Example usage
   const summary = summarizeDayWeather(weatherData);
-  console.log(summary);
 
 
   return (

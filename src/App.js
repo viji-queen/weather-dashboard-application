@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Region from './Regions/Region';
 
 import {React, useState} from 'react'
-import Suggestion from './Analysis/Suggestion';
+
 function App() {
   const [lat, setLat] = useState(13.0878);
   const [lon, setLon] = useState(80.2785);
