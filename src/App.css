@@ -58,7 +58,7 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center; */
-  border: 1px white solid;
+  /* border: 1px white solid; */
   height: auto;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; /* Use a clean and modern font */
   color: white;
