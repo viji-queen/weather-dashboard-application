@@ -10,13 +10,11 @@ function MonthlyPlanner({weatherData, formatDateTime}) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-    console.log(weatherData);
     const extractedData = weatherData.map(item => ({
         temperature: item.main.temp,
         weather: item.weather[0].main,
         dt: formatDateTime(item.dt_txt) // Optionally include the datetime for reference
       }));
-console.log(extractedData, "Extracteddata");
   return (
     <>
     <Card

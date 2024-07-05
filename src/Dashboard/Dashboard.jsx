@@ -6,6 +6,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Suggestion from "../Analysis/Suggestion";
 import MonthlyPlanner from "../Analysis/MonthlyPlanner";
+import TempUnitSelector from "./TempUnitSelector";
+import { useSelector } from 'react-redux';
+import { convertTemperature } from "../redux/temparatureConverter";
 
 function Dashboard({lat, lon}) {
   const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
@@ -73,16 +76,35 @@ function Dashboard({lat, lon}) {
     const hour = hours % 12 === 0 ? 12 : hours % 12;
     return `${dayOfWeek} ${hour} ${period}`;
   };
+  const temperatureUnit = useSelector((state) => state.temperature.unit);
+const getTemperatureUnitSymbol = (unit) => {
+  console.log("UNit");
+  switch (unit) {
+    case 'Celsius':
+      console.log('C');
+      return `°C`;
+    case 'Fahrenheit':
+      console.log("F");
+      return '°F';
+    case 'Kelvin':
+      console.log("K");
+      return 'K';
+    default:
+      return 'H';
+  }
+};
+
   return (
     <>
       <div className="dashboard-card">
+        <TempUnitSelector />
         {weatherData.length > 0 && (
           <div>
             <NowCard
               city={locationData.name}
               country={locationData.country}
-              temp={Math.ceil(weatherData[0].main.temp - 272.15)}
-              feels_like={Math.ceil(weatherData[0].main.feels_like - 272.15)}
+              temp={Math.ceil(convertTemperature(weatherData[0].main.temp, temperatureUnit)) } 
+              feels_like={Math.ceil(convertTemperature(weatherData[0].main.feels_like, temperatureUnit)) } 
               description={weatherData[0].weather[0].description}
               image={`https://openweathermap.org/img/wn/${weatherData[0].weather[0].icon}.png`}
               wind_speed={weatherData[0].wind.speed}
@@ -97,7 +119,7 @@ function Dashboard({lat, lon}) {
              <div key={index} className="card-wrapper">
             <DetailedCard
               days={formatDateTime(w.dt_txt)}
-              temp={Math.ceil(w.main.temp - 273.15)}
+              temp={Math.ceil(convertTemperature(weatherData[0].main.feels_like, temperatureUnit)) } 
               image={`https://openweathermap.org/img/wn/${w.weather[0].icon}.png`}
               description={w.weather[0].description}
               weatherData={weatherData}

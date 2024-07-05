@@ -1,6 +1,20 @@
 import React from 'react'
-
+import { useSelector } from 'react-redux';
 function NowCard({city,country,humidity, temp, description, image, feels_like, wind_speed}) {
+  const temperatureUnit = useSelector((state) => state.temperature.unit);
+  const getTemperatureUnitSymbol = (unit) => {
+    console.log("UNit");
+    switch (unit) {
+      case 'Celsius':
+        return '°C';
+      case 'Fahrenheit':
+        return '°F';
+      case 'Kelvin':
+        return 'K';
+      default:
+        return 'H';
+    }
+  };
   return (
     <>
   <div className='now-card '>
@@ -10,14 +24,14 @@ function NowCard({city,country,humidity, temp, description, image, feels_like, w
       <div className="row">
         <div className="col">
           <h2>Now</h2>
-          <h2>{temp}°C</h2>
+          <h2>{temp}{getTemperatureUnitSymbol(temperatureUnit)}</h2>
         </div>
         <div className='col'>
         <h2>{description}</h2>
         </div>
         <div className='col'>
           <h2>Feels Like</h2>
-          <h2>{feels_like}°C</h2>
+          <h2>{feels_like}{getTemperatureUnitSymbol(temperatureUnit)}</h2>
         </div>
       </div>
     </div>

@@ -2,8 +2,23 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from 'react-redux';
 
 function DetailedCard({ days, temp, image, description }) {
+  const temperatureUnit = useSelector((state) => state.temperature.unit);
+  const getTemperatureUnitSymbol = (unit) => {
+    console.log("UNit");
+    switch (unit) {
+      case 'Celsius':
+        return '°C';
+      case 'Fahrenheit':
+        return '°F';
+      case 'Kelvin':
+        return 'K';
+      default:
+        return 'H';
+    }
+  };
   return (
     <>
     <Card style={{ width: '18rem' ,
@@ -15,7 +30,7 @@ function DetailedCard({ days, temp, image, description }) {
       <Card.Body>
         <Card.Title>{days}</Card.Title>
         <Card.Text>
-         {temp}°C
+         {temp}{getTemperatureUnitSymbol(temperatureUnit)}
         </Card.Text>
         <Card.Text>{description}</Card.Text>
 
