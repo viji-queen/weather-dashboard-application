@@ -77,22 +77,6 @@ function Dashboard({lat, lon}) {
     return `${dayOfWeek} ${hour} ${period}`;
   };
   const temperatureUnit = useSelector((state) => state.temperature.unit);
-const getTemperatureUnitSymbol = (unit) => {
-  console.log("UNit");
-  switch (unit) {
-    case 'Celsius':
-      console.log('C');
-      return `°C`;
-    case 'Fahrenheit':
-      console.log("F");
-      return '°F';
-    case 'Kelvin':
-      console.log("K");
-      return 'K';
-    default:
-      return 'H';
-  }
-};
 
   return (
     <>
@@ -119,7 +103,7 @@ const getTemperatureUnitSymbol = (unit) => {
              <div key={index} className="card-wrapper">
             <DetailedCard
               days={formatDateTime(w.dt_txt)}
-              temp={Math.ceil(convertTemperature(weatherData[0].main.feels_like, temperatureUnit)) } 
+              temp={Math.ceil(convertTemperature(weatherData[0].main.temp, temperatureUnit)) } 
               image={`https://openweathermap.org/img/wn/${w.weather[0].icon}.png`}
               description={w.weather[0].description}
               weatherData={weatherData}
