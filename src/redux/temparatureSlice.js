@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const temperatureSlice = createSlice({
   name: 'temperature',
   initialState: {
-    unit: 'Kelvin',
+    unit: 'Celsius',
   },
   reducers: {
     setTemperatureUnit: (state, action) => {
