@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import NowCard from "./NowCard";
 import DetailedCard from "./DetailedCard";
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Suggestion from "../Analysis/Suggestion";
 import MonthlyPlanner from "../Analysis/MonthlyPlanner";
 import TempUnitSelector from "./TempUnitSelector";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { convertTemperature } from "../redux/temparatureConverter";
 
-function Dashboard({lat, lon}) {
+function Dashboard({ lat, lon }) {
   const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
   const API_KEY = "6d3af1a2f2341dbebecf0a68bac8ef62";
   // const [lat, setLat] = useState(13.0878);
@@ -29,25 +29,25 @@ function Dashboard({lat, lon}) {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2
-        }
+          slidesToScroll: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,7 +65,7 @@ function Dashboard({lat, lon}) {
     };
 
     fetchData();
-  }, [lat,lon]);
+  }, [lat, lon]);
   console.log(weatherData);
   const formatDateTime = (dt_txt) => {
     const date = new Date(dt_txt);
@@ -78,6 +78,24 @@ function Dashboard({lat, lon}) {
   };
   const temperatureUnit = useSelector((state) => state.temperature.unit);
 
+  const formatPopulation = (num) => {
+    if (num >= 1_000_000_000) {
+      return (num / 1_000_000_000).toFixed(1) + " billion";
+    } else if (num >= 1_000_000) {
+      return (num / 1_000_000).toFixed(1) + " million";
+    }
+    return num.toString();
+  };
+  const convertUnixTimeToIST = (unixTime) => {
+    const IST_OFFSET = 5.5 * 3600; // IST is UTC + 5:30
+    const date = new Date((unixTime + IST_OFFSET) * 1000);
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       <div className="dashboard-card">
@@ -87,37 +105,67 @@ function Dashboard({lat, lon}) {
             <NowCard
               city={locationData.name}
               country={locationData.country}
-              temp={Math.ceil(convertTemperature(weatherData[0].main.temp, temperatureUnit)) } 
-              feels_like={Math.ceil(convertTemperature(weatherData[0].main.feels_like, temperatureUnit)) } 
+              temp={Math.ceil(
+                convertTemperature(weatherData[0].main.temp, temperatureUnit)
+              )}
+              feels_like={Math.ceil(
+                convertTemperature(
+                  weatherData[0].main.feels_like,
+                  temperatureUnit
+                )
+              )}
               description={weatherData[0].weather[0].description}
               image={`https://openweathermap.org/img/wn/${weatherData[0].weather[0].icon}.png`}
               wind_speed={weatherData[0].wind.speed}
               humidity={weatherData[0].main.humidity}
+              sunrise={new Date(locationData.sunrise * 1000).toLocaleTimeString(
+                "en-US",
+                { hour: "2-digit", minute: "2-digit", hour12: true }
+              )}
+              sunset={new Date(locationData.sunset * 1000).toLocaleTimeString(
+                "en-US",
+                { hour: "2-digit", minute: "2-digit", hour12: true }
+              )}
+              population={formatPopulation(locationData.population)}
+              timezone={new Date(
+                (locationData.timezone + 5.5 * 3600) * 1000
+              ).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
             />
           </div>
         )}
 
         <div className="carousel-container">
-        <Slider {...settings}>
-          {weatherData.map((w, index) => (
-             <div key={index} className="card-wrapper">
-            <DetailedCard
-              days={formatDateTime(w.dt_txt)}
-              temp={Math.ceil(convertTemperature(weatherData[0].main.temp, temperatureUnit)) } 
-              image={`https://openweathermap.org/img/wn/${w.weather[0].icon}.png`}
-              description={w.weather[0].description}
-              weatherData={weatherData}
-            />
-            </div>
-          ))}
+          <Slider {...settings}>
+            {weatherData.map((w, index) => (
+              <div key={index} className="card-wrapper">
+                <DetailedCard
+                  days={formatDateTime(w.dt_txt)}
+                  temp={Math.ceil(
+                    convertTemperature(
+                      weatherData[0].main.temp,
+                      temperatureUnit
+                    )
+                  )}
+                  image={`https://openweathermap.org/img/wn/${w.weather[0].icon}.png`}
+                  description={w.weather[0].description}
+                  weatherData={weatherData}
+                />
+              </div>
+            ))}
           </Slider>
         </div>
       </div>
-     <div className="m-5 d-flex justify-content-center gap-5">
-     <Suggestion weatherData={weatherData} formatDateTime={formatDateTime}/>
-     <MonthlyPlanner weatherData={weatherData} formatDateTime={formatDateTime} />
-     </div>
-
+      <div className="m-5 d-flex justify-content-center gap-5">
+        <Suggestion weatherData={weatherData} formatDateTime={formatDateTime} />
+        <MonthlyPlanner
+          weatherData={weatherData}
+          formatDateTime={formatDateTime}
+        />
+      </div>
     </>
   );
 }
