@@ -70,6 +70,41 @@ const calculateAverage = (arr) => {
 };
 console.log(calculateAverage(tempPerDay));
 console.log(tempPerDay);
+const getWeatherRecommendations = (weatherData) => {
+  const recommendations = [];
+
+
+  if (weatherData.main.temp < 273) {
+    recommendations.push("It's very cold outside.");
+  } else if (weatherData.main.temp >= 273 && weatherData.main.temp < 283) {
+    recommendations.push("It's cold outside. Wear a light jacket.");
+  }else if (weatherData.main.temp >= 283 && weatherData.main.temp < 293) {
+    recommendations.push("It's cool outside. Wear a light jacket.");
+  } else if (weatherData.main.temp >= 293 && weatherData.main.temp < 298) {
+    recommendations.push("The weather is pleasant. Light clothing is fine.");
+  }  else if (weatherData.main.temp >= 298 && weatherData.main.temp < 303) {
+    recommendations.push("The weather is warm.");
+  } else {
+    recommendations.push("It's hot outside. Stay hydrated and wear light clothing.");
+  }
+
+  const weatherCondition = weatherData.weather[0].main;
+  if (weatherCondition === "Rain") {
+    recommendations.push("It's raining. Don't forget your umbrella.");
+  } else if (weatherCondition === "Snow") {
+    recommendations.push("Snowy weather. Wear warm clothes and be careful on the roads.");
+  } else if (weatherCondition === "Clear") {
+    recommendations.push("The sky is clear. A great day for outdoor activities.");
+  }
+
+  if (weatherData.wind.speed > 10) {
+    recommendations.push("It's windy. Secure any loose items outside.");
+  }
+
+  return recommendations;
+};
+const recommendations = weatherData.length > 0 ? getWeatherRecommendations(weatherData[0]) : [];
+console.log(recommendations, 'RECOMMENDATIONS');
   return (
     <div>
       <h1>Mostly {summary.weather}</h1>
@@ -125,6 +160,11 @@ console.log(tempPerDay);
          <StatusIndicator status="green"  /> Great
        </div>
           }        </Col>
+       
+          {recommendations.map((recommendation, index) => (
+          <li key={index}>{recommendation}</li>
+        ))}
+      
       </Row>
      
     </div>
