@@ -18,7 +18,6 @@ function NowCard({
 }) {
   const temperatureUnit = useSelector((state) => state.temperature.unit);
   const getTemperatureUnitSymbol = (unit) => {
-    console.log("UNit");
     switch (unit) {
       case "Celsius":
         return "°C";

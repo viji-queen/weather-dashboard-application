@@ -9,6 +9,9 @@ import MonthlyPlanner from "../Analysis/MonthlyPlanner";
 import TempUnitSelector from "./TempUnitSelector";
 import { useSelector } from "react-redux";
 import { convertTemperature } from "../redux/temparatureConverter";
+import TempGraph from "./TempGraph";
+import ThemeToggle from "./ThemeToggle";
+
 
 function Dashboard({ lat, lon }) {
   const API_URL = "https://api.openweathermap.org/data/2.5/forecast";
@@ -86,15 +89,7 @@ function Dashboard({ lat, lon }) {
     }
     return num.toString();
   };
-  const convertUnixTimeToIST = (unixTime) => {
-    const IST_OFFSET = 5.5 * 3600; // IST is UTC + 5:30
-    const date = new Date((unixTime + IST_OFFSET) * 1000);
-    return date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
+
 
   return (
     <>
@@ -146,7 +141,7 @@ function Dashboard({ lat, lon }) {
                   days={formatDateTime(w.dt_txt)}
                   temp={Math.ceil(
                     convertTemperature(
-                      weatherData[0].main.temp,
+                      w.main.temp,
                       temperatureUnit
                     )
                   )}
@@ -165,6 +160,9 @@ function Dashboard({ lat, lon }) {
           weatherData={weatherData}
           formatDateTime={formatDateTime}
         />
+      </div>
+      <div   className="dashboard-card d-flex justify-content-center "  >
+     <TempGraph  weatherData={weatherData} formatDateTime={formatDateTime}/>
       </div>
     </>
   );

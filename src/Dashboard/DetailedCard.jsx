@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 function DetailedCard({ days, temp, image, description }) {
   const temperatureUnit = useSelector((state) => state.temperature.unit);
   const getTemperatureUnitSymbol = (unit) => {
-    console.log("UNit");
     switch (unit) {
       case 'Celsius':
         return '°C';
@@ -24,7 +23,7 @@ function DetailedCard({ days, temp, image, description }) {
     <Card style={{ width: '18rem' ,
     backgroundColor:'transparent',   
     fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif" ,
-    // color:'white'
+    color:'white'
     }}>
       <img className="card-img" variant="top" src={image} />
       <Card.Body>
